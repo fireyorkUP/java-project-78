@@ -8,7 +8,8 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema minLength(int length) {
-        addPredicate(s -> ((String) s).length() >= length);
+        predicates.clear();
+        addPredicate(s -> s.toString().length() >= length);
         return this;
     }
 

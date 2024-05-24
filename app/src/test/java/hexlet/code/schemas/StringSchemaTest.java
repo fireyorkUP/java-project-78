@@ -30,6 +30,9 @@ class StringSchemaTest {
 
         assertTrue(schema.minLength(4).isValid("Hexlet"));
         assertFalse(schema.minLength(7).isValid("Hexlet"));
+
+        var schema1 = v.string();
+        assertTrue(schema1.minLength(10).minLength(4).isValid("Hexlet"));
     }
 
     @Test
