@@ -7,13 +7,13 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    public StringSchema minLength(int minLength) {
-        addPredicate(s -> ((String) s).length() >= minLength);
+    public StringSchema minLength(int length) {
+        addPredicate(s -> ((String) s).length() >= length);
         return this;
     }
 
     public StringSchema contains(String word) {
-        addPredicate(s -> ((String) s).toLowerCase().contains(word.toLowerCase()));
+        addPredicate(s -> ((String) s).contains(word.toLowerCase()));
         return this;
     }
 }
