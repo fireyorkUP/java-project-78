@@ -46,11 +46,13 @@ class MapSchemaTest {
     void shapeTest() {
         var v = new Validator();
         var schema = v.map();
+        var firstName = v.string().required();
+        var lastName = v.string().required().minLength(2);
 
-        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
 
-        schemas.put("firstName", v.string().required());
-        schemas.put("lastName", v.string().required().minLength(2));
+        schemas.put("firstName", firstName);
+        schemas.put("lastName", lastName);
 
         schema.shape(schemas);
 
