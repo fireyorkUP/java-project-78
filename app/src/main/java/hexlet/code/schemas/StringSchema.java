@@ -16,7 +16,6 @@ public class StringSchema {
 
     public StringSchema minLength(int minLength) {
         Predicate<Object> predicate = s -> ((String) s).length() >= minLength;
-        predicates.add(predicate);
         return this;
     }
 
