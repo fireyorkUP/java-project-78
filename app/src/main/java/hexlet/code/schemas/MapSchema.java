@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public class MapSchema extends BaseSchema {
 
     public MapSchema required() {
         this.isRequired = true;
@@ -14,7 +14,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema<?>> map) {
+    public MapSchema shape(Map<String, BaseSchema> map) {
         addPredicate(s -> {
             if (!(s instanceof Map)) {
                 return false;

@@ -46,7 +46,7 @@ class MapSchemaTest {
     void shapeStringTest() {
         Validator v = new Validator();
         MapSchema schema = v.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
 
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
@@ -73,7 +73,7 @@ class MapSchemaTest {
     void shapeIntTest() {
         Validator v = new Validator();
         MapSchema schema = v.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
         schemas.put("name", v.string().required());
         schemas.put("age", v.number().positive());
         schema.shape(schemas);
