@@ -1,13 +1,6 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-public class StringSchema {
-
-    private boolean isRequired = false;
-    private final List<Predicate<Object>> predicates = new ArrayList<>();
+public class StringSchema extends BaseSchema {
 
     public StringSchema required() {
         this.isRequired = true;
@@ -15,21 +8,12 @@ public class StringSchema {
     }
 
     public StringSchema minLength(int minLength) {
-        Predicate<Object> predicate = s -> ((String) s).length() >= minLength;
+        addPredicate(s -> ((String) s).length() >= minLength);
         return this;
     }
 
     public StringSchema contains(String word) {
-        Predicate<Object> containsWord = s -> ((String) s).toLowerCase().contains(word.toLowerCase());
-        predicates.add(containsWord);
+        addPredicate(s -> ((String) s).toLowerCase().contains(word.toLowerCase()));
         return this;
-    }
-
-    public final boolean isValid(Object obj) {
-        if (obj == null || obj.equals("")) {
-            return !isRequired;
-        }
-        return predicates.stream()
-                .allMatch(predicate -> predicate.test(obj));
     }
 }

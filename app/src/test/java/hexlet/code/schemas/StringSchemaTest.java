@@ -28,7 +28,8 @@ class StringSchemaTest {
         Validator v = new Validator();
         StringSchema schema = v.string();
 
-        assertTrue(schema.minLength(10).minLength(4).isValid("Hexlet"));
+        assertTrue(schema.minLength(4).isValid("Hexlet"));
+        assertFalse(schema.minLength(7).isValid("Hexlet"));
     }
 
     @Test
