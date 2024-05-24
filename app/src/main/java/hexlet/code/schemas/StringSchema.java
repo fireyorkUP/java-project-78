@@ -13,7 +13,7 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema contains(String word) {
-        addPredicate(s -> ((String) s).contains(word.toLowerCase()));
+        addPredicate(s -> ((String) s).contains(word));
         return this;
     }
 }

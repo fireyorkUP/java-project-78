@@ -68,4 +68,42 @@ class MapSchemaTest {
         human3.put("lastName", "B");
         assertFalse(schema.isValid(human3));
     }
+
+    @Test
+    void validationTest() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        schema.required();
+
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("name", v.string().required());
+        schemas.put("age", v.number().positive());
+        schema.shape(schemas);
+
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Volya");
+        human1.put("age", 100);
+        assertTrue(schema.isValid(human1));
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("name", "Ann");
+        human2.put("age", null);
+        assertTrue(schema.isValid(human2));
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("name", "");
+        human3.put("age", null);
+        assertFalse(schema.isValid(human3));
+
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put("name", "Andrew");
+        human4.put("age", -53);
+        assertFalse(schema.isValid(human4));
+
+        schema.sizeof(2);
+        assertFalse(schema.isValid(human4));
+
+        schema.required();
+        assertFalse(schema.isValid(human4));
+    }
 }
