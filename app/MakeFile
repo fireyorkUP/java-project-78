@@ -1,7 +1,7 @@
 run-dist:
 	./build/install/app/bin/app
 
-style:
+lint:
 	./gradlew checkstyleMain
 
 test:

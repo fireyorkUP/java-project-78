@@ -10,8 +10,8 @@ clean:
 test:
 	make -C app test
 
-style:
-	make -C app style
+lint:
+	make -C app lint
 
 report:
 	make -C app report
