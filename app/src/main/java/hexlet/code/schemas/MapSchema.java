@@ -14,7 +14,7 @@ public class MapSchema extends BaseSchema {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> map) {
+    public MapSchema shape(Map<String, BaseSchema<String>> map) {
         addPredicate(s -> {
             if (!(s instanceof Map)) {
                 return false;
