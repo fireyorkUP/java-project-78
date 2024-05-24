@@ -2,24 +2,24 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema {
+public class MapSchema<T, V> extends BaseSchema<Map> {
 
-    public MapSchema required() {
+    public MapSchema<T, V> required() {
         this.isRequired = true;
         return this;
     }
 
-    public MapSchema sizeof(int size) {
+    public MapSchema<T, V> sizeof(int size) {
         addPredicate(map -> ((Map<?, ?>) map).size() == size);
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> map) {
+    public MapSchema<T, V> shape(Map<String, BaseSchema<String>> map) {
         addPredicate(s -> {
             if (!(s instanceof Map)) {
                 return false;
             }
-            for (String key : map.keySet()) {
+            for (var key : map.keySet()) {
                 if (!map.get(key).isValid(((Map<?, ?>) s).get(key))) {
                     return false;
                 }
