@@ -1,18 +1,19 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
     protected boolean isRequired = false;
-    protected List<Predicate<Object>> predicates = new ArrayList<>();
+    protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
     /**
-     * @param predicate allows you to add predicates to list
+     * @param checkName allows you to add check name to map
+     * @param predicate allows you to add predicates to map
      */
-    public void addPredicate(Predicate<Object> predicate) {
-        predicates.add(predicate);
+    protected final void addCheck(String checkName, Predicate<T> predicate) {
+        checks.put(checkName, predicate);
     }
 
     /** null validation.
@@ -24,12 +25,15 @@ public abstract class BaseSchema<T> {
      * @param obj Strongly parametrized object
      * @return true if all validations passed, false otherwise
      */
-
-    public final boolean isValid(Object obj) {
+    protected boolean isValid(T obj) {
         if (obj == null || obj.equals("")) {
             return !isRequired;
         }
-        return predicates.stream()
-                .allMatch(p -> p.test(obj));
+        for (var check : checks.entrySet()) {
+            if (!check.getValue().test(obj)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

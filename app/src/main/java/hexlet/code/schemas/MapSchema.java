@@ -10,21 +10,14 @@ public final class MapSchema<T, V> extends BaseSchema<Map> {
     }
 
     public MapSchema<T, V> sizeof(int size) {
-        addPredicate(map -> ((Map<?, ?>) map).size() == size);
+        addCheck("size", map -> ((Map<?, ?>) map).size() == size);
         return this;
     }
 
-    public MapSchema<T, V> shape(Map<String, BaseSchema<String>> map) {
-        addPredicate(s -> {
-            if (!(s instanceof Map)) {
-                return false;
-            }
-            for (var key : map.keySet()) {
-                if (!map.get(key).isValid(((Map<?, ?>) s).get(key))) {
-                    return false;
-                }
-            }
-            return true;
+    public MapSchema<T, V> shape(Map<String, BaseSchema<Object>> map) {
+        addCheck("shape", s -> {
+            return map.keySet().stream()
+                    .allMatch(k -> map.get(k).isValid(((Map<?, ?>) s).get(k)));
         });
         return this;
 

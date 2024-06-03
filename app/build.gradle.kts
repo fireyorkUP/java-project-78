@@ -1,5 +1,5 @@
 plugins {
-    application
+    id("java")
     checkstyle
     jacoco
 }
@@ -18,10 +18,6 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-application {
-    mainClass = "hexlet.code.App"
 }
 
 tasks.jacocoTestReport {
